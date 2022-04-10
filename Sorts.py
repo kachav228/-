@@ -1,4 +1,5 @@
-class Sorts():
+import Tree
+class Sorts:
 
 
     __private_swaps = 0
@@ -85,7 +86,7 @@ class Sorts():
         while (step > 1):
             i = 0
             while (i + step < len(clist)):
-                if(clist[i + step] < clist[i]):
+                if(self.compare(clist[i], clist[i + step], reverse)):
                     self.swap(clist, i, i + step)
                 i += 1
             step /= k
@@ -98,8 +99,7 @@ class Sorts():
             changed = False
             for i in range(0, last):
                 if (self.compare(clist[i], clist[i + 1], reverse)):
-                    self.__private_swaps += 1
-                    clist[i], clist[i + 1] = clist[i + 1], clist[i]
+                    self.swap(clist, i, i + 1)
                     changed = True
             last -= 1
 
@@ -109,10 +109,8 @@ class Sorts():
 
         for el in range(0, len(clist) - 1):
             i = el
-            self.__private_compares += 1
             while(self.compare(clist[i], clist[i + 1], reverse) and i >= 0):
-                self.__private_swaps += 1
-                clist[i], clist[i + 1] = clist[i + 1], clist[i]
+                self.swap(clist, i, i + 1)
                 i -= 1
 
     def shell_sort(self, clist: list, reverse: bool):
@@ -124,20 +122,27 @@ class Sorts():
 
         while(step > 0):
             i = step
-            while(i < len(clist) - 1):
+            while(i < len(clist)):
                 j = i - step
-                while(j >= 0 and self.compare(clist[j], clist[j + step])):
-                    clist[j], clist[j + step] = clist[j + step], clist[j]
-                    self.__private_compares += 1
-                    self.__private_swaps += 1
+                while(j >= 0 and self.compare(clist[j], clist[j + step], reverse)):
+                    self.swap(clist, j, j + step)
                     j -= step
                 i += 1
             step //= 2
+        print("SHell__: ", clist)
 
 
 
     def tree_sort(self, clist: list, reverse: bool):
-
+        tr = Tree.Tree(clist[0])
+        i = 0
+        for i in clist[1:]:
+            ntr = Tree.Tree(i)
+            i += tr.insert(ntr, reverse)
+        del clist[:]
+        tr.traverse(clist)
+        self.__private_compares = int(i)
+        self.__private_swaps = 'создано ' + str(len(clist)) + ' экземпляров объекта'
         pass
 
     def gnome_sort(self, clist: list, reverse: bool):
@@ -175,7 +180,7 @@ class Sorts():
                 self.comb_sort(clist, reverse)
             case 'Сортировка вставками':
                 self.insertion_sort(clist, reverse)
-            case 'Сортровка Шелла':
+            case 'Сортировка Шелла':
                 self.shell_sort(clist, reverse)
             case 'Сортировка деревом':
                 self.tree_sort(clist, reverse)
