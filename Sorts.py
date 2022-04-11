@@ -4,7 +4,6 @@ class Sorts:
 
     __private_swaps = 0
     __private_compares = 0
-    var = 0
 
     def round(self, f: float):
         """Округляем число в меньшую сторону"""
