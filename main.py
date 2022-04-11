@@ -22,8 +22,7 @@ layout = [[psg.Text("отсортированная последовательн
            psg.Text("", size=(wunit * 1, 1), key='swaps', font=('Arial', 15), text_color='red', background_color='yellow')],
           [psg.Checkbox("cортировка по убыванию", default=False, key="check_order")],
           [psg.Combo(['Сортировка пузырьком','Коктейльная сортировка', 'Сортировка вставками', 'Сортировка расчёской',
-                      'Сортировка Шелла', 'Сортировка деревом', 'Гномья сортировка','Сортировка выбором',
-                      'Пирамидальная сортировка', 'Быстрая сортировка', 'Сортировка слиянием']
+                      'Сортировка Шелла', 'Сортировка деревом', 'Гномья сортировка','Сортировка выбором']
                      , size=(wunit, 1), key='sort_type', readonly=True, default_value='Сортировка пузырьком')],
           [psg.Text("введите последовательность чисел через пробел", size=(wunit * 2, 1), justification='center', font=('Arial', 15), text_color='yellow')],
           [psg.Multiline(default_text="1 2 3", right_click_menu=rightClickMenu, key='input', size=(wunit * 2, 5))],
