@@ -13,12 +13,12 @@ class Sorts:
             x -= 1
         return x
 
-    def compare(self, el1, el2, reverse = False):
+    def compare(self, el1, el2, reverse = False, eq = False):
         """сравниваем значения для убывающиего и возрастающего порядка - если параметр reverse = False,
         а первый элемент больше второго, то их нужно поменять местами, то есть возвращаем True, если же
         reverse = True, то если первый элемент меньше второго, меняем их местами, возвращяя значение True"""
         self.__private_compares += 1
-        if(el1 > el2):
+        if(el1 > el2 or (eq and el1 == el2)):
             reverse = not reverse
         return reverse
 
@@ -146,24 +146,27 @@ class Sorts:
         pass
 
     def gnome_sort(self, clist: list, reverse: bool):
+        i = 0
+        it = 0
+        while(i < len(clist) and it < 100):
 
-        pass
+            it += 1
+            if(i == 0 or self.compare(clist[i], clist[i - 1], reverse, eq=True)):
+                i += 1
+            else:
+                self.swap(clist, i, i-1)
+                i -= 1
+
 
     def selection_sort(self, clist: list, reverse: bool):
-
-        pass
-
-    def heap_sort(self, clist: list, reverse: bool):
-
-        pass
-
-    def quick_sort(self, clist: list, reverse: bool):
-
-        pass
-
-    def merge_sort(self, clist: list, reverse: bool):
-
-        pass
+        for i in range(0, len(clist)):
+            minz = clist[i]
+            ind = i
+            for j in range(i + 1, len(clist)):
+                if(self.compare(minz, clist[j], reverse)):
+                    minz = clist[j]
+                    ind = j
+            self.swap(clist, i, ind)
 
 
 
@@ -188,10 +191,4 @@ class Sorts:
                 self.gnome_sort(clist, reverse)
             case 'Сортировка выбором':
                 self.selection_sort(clist, reverse)
-            case 'Пирамидальная сортировка':
-                self.heap_sort(clist, reverse)
-            case 'Быстрая сортировка':
-                self.quick_sort(clist, reverse)
-            case 'Сортировка слиянием':
-                self.merge_sort(clist, reverse)
         return self.__private_compares, self.__private_swaps
