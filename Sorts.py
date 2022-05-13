@@ -1,4 +1,6 @@
 import Tree
+import time
+
 class Sorts:
 
 
@@ -131,7 +133,7 @@ class Sorts:
 
 
 
-        def tree_sort(self, clist: list, reverse: bool):
+    def tree_sort(self, clist: list, reverse: bool):
         tr = Tree.Tree(clist[0])
         i = 0
         for j in clist[1:]:
@@ -146,7 +148,7 @@ class Sorts:
     def gnome_sort(self, clist: list, reverse: bool):
         i = 0
         it = 0
-        while(i < len(clist) and it < 100):
+        while(i < len(clist)):
 
             it += 1
             if(i == 0 or self.compare(clist[i], clist[i - 1], reverse, eq=True)):
@@ -170,6 +172,8 @@ class Sorts:
 
     def sort(self, clist: list, sort_type: str, reverse = False):
         self.__private_compares = self.__private_swaps = 0
+        ts = time.time()
+        print(ts)
         if (len(clist) < 2):
             return
         match sort_type:
@@ -189,4 +193,4 @@ class Sorts:
                 self.gnome_sort(clist, reverse)
             case 'Сортировка выбором':
                 self.selection_sort(clist, reverse)
-        return self.__private_compares, self.__private_swaps
+        return self.__private_compares, self.__private_swaps, time.time() - ts
