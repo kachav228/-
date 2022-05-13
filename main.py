@@ -15,6 +15,8 @@ layout = [[psg.Text("отсортированная последовательн
            psg.Text("", size=(50, 1), key='compares', font=('Arial', 15), text_color='red', background_color='yellow')],
           [psg.Text("количество обменов элементов: ", size=(50, 1), font=('Arial', 10), text_color='yellow'),
            psg.Text("", size=(50, 1), key='swaps', font=('Arial', 15), text_color='red', background_color='yellow')],
+          [psg.Text("количество затраченного времени: ", size=(50, 1), font=('Arial', 10), text_color='yellow'),
+           psg.Text("", size=(50, 1), key='time', font=('Arial', 15), text_color='red', background_color='yellow')],
           [psg.Checkbox("cортировка по убыванию", default=False, key="check_order")],
           [psg.Combo(['Сортировка пузырьком','Коктейльная сортировка', 'Сортировка вставками', 'Сортировка расчёской',
                       'Сортировка Шелла', 'Сортировка деревом', 'Гномья сортировка','Сортировка выбором']
@@ -26,7 +28,7 @@ layout = [[psg.Text("отсортированная последовательн
 
 
 window = psg.Window('Алгоритмы сортировки', layout,
-                    size=(900, 400))
+                    size=(900, 450))
 
 
 s = Sorts.Sorts()
@@ -44,22 +46,27 @@ while True:
     elif event in 'Copy':
         #при нажатии правой кнопкой мыши вызывается меню с вариантами (скопировать, вставить)
         #но при вставке выделенный текст не меняется, а лишь идёт добавление в конец текущего текста
-        pc.copy(window['input'].Widget.selection_get())
+        try:
+            pc.copy(window['input'].Widget.selection_get())
+        except:
+            pass
     elif event in 'Paste':
         window['input'].Update(window['input'].get() + pc.paste())
     elif event in 'OK':
         #нажатие на кнопку ввода - происходит обработка введённого массива чисел и вывод полученной информации
         elems = []
+        ts = 0.0
         for elem in window['input'].get().split():
             try:
                 elems.append(float(elem))
             except:
                 pass
-        compares, swaps = s.sort(elems, sort_type=window['sort_type'].get(), reverse=window['check_order'].get())
+        compares, swaps, ts = s.sort(elems, sort_type=window['sort_type'].get(), reverse=window['check_order'].get())
 
 
         window['compares'].Update(compares)
         window['swaps'].Update(swaps)
+        window['time'].Update("{:.{}f}".format(ts, 20))
 
         elems = [str(item) for item in elems]
 
