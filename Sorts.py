@@ -19,7 +19,7 @@ class Sorts:
         а первый элемент больше второго, то их нужно поменять местами, то есть возвращаем True, если же
         reverse = True, то если первый элемент меньше второго, меняем их местами, возвращяя значение True"""
         self.__private_compares += 1
-        if(el1 > el2 or (eq and el1 == el2)):
+        if(el1 > el2 or ((eq^reverse) and el1 == el2)):
             reverse = not reverse
         return reverse
 
@@ -173,7 +173,6 @@ class Sorts:
     def sort(self, clist: list, sort_type: str, reverse = False):
         self.__private_compares = self.__private_swaps = 0
         ts = time.time()
-        print(ts)
         if (len(clist) < 2):
             return
         match sort_type:
