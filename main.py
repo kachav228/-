@@ -66,7 +66,7 @@ while True:
 
         window['compares'].Update(compares)
         window['swaps'].Update(swaps)
-        window['time'].Update("{:.{}f} sec".format(ts, 20))
+        window['time'].Update("{:.{}f} msec".format(ts * 1000, 20))
 
         elems = [str(item) for item in elems]
 
