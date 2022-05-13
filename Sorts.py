@@ -131,11 +131,11 @@ class Sorts:
 
 
 
-    def tree_sort(self, clist: list, reverse: bool):
+        def tree_sort(self, clist: list, reverse: bool):
         tr = Tree.Tree(clist[0])
         i = 0
-        for i in clist[1:]:
-            ntr = Tree.Tree(i)
+        for j in clist[1:]:
+            ntr = Tree.Tree(j)
             i += tr.insert(ntr, reverse)
         del clist[:]
         tr.traverse(clist)
