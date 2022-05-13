@@ -172,7 +172,7 @@ class Sorts:
 
     def sort(self, clist: list, sort_type: str, reverse = False):
         self.__private_compares = self.__private_swaps = 0
-        ts = time.time()
+        ts = time.perf_counter()
         if (len(clist) < 2):
             return
         match sort_type:
@@ -192,4 +192,4 @@ class Sorts:
                 self.gnome_sort(clist, reverse)
             case 'Сортировка выбором':
                 self.selection_sort(clist, reverse)
-        return self.__private_compares, self.__private_swaps, time.time() - ts
+        return self.__private_compares, self.__private_swaps, time.perf_counter() - ts
